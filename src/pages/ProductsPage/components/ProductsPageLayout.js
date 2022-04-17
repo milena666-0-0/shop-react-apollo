@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Query } from "react-apollo";
 
-import { GET_CATEGORY_QUERY } from "../../../services/index";
+import { GET_CATEGORY_QUERY } from "../../../queries/index";
 import ProductCardContainer from "../../../components/ProductCard/containers/ProductCardContainer";
 import { transformFirstCharToUp } from "../../../utils/index";
 
