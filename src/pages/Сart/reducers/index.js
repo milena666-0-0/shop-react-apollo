@@ -65,6 +65,75 @@ export const cartReducer = handleActions(
 				cart: copy,
 			};
 		},
+
+		[actions.UPDATE_SELECTED_ATTRIBUTE]: (state, { payload }) => {
+			let { id, attributeId, productId } = payload;
+			const copy = [...state.cart];
+
+			let productToChange = copy.find(
+				(product) => product.id === productId
+			);
+
+			const index = copy.indexOf(productToChange);
+
+			const changedAttributes = productToChange.attributes.map(
+				(attribute) => {
+
+					const attributeToChange = attribute.id === attributeId;
+
+					if (attributeToChange) {
+
+						const changedItems = attribute.items.map((item) => {
+
+							if (item.id === id) {
+								productId = productId.split("#")[0];
+								productId += `#${id}`;
+								return { ...item, selected: true };
+							} else {
+								return { ...item, selected: false };
+							}
+
+						});
+
+						return { ...attribute, items: changedItems };
+					} else {
+						return attribute;
+					}
+				}
+			);
+
+			copy[index] = {
+				...productToChange,
+				id: productId,
+				attributes: changedAttributes,
+			};
+
+			const inCart = state.cart.find(
+				(item) => copy[index].id === item.id
+			);
+
+			if (inCart) {
+				copy[index].quantity += inCart.quantity;
+
+				const indexOf = state.cart.indexOf(inCart);
+
+				copy.splice(indexOf, 1);
+			}
+
+			return {
+				...state,
+				cart: copy,
+			};
+		},
+
+		[actions.DELETE]: (state) => {
+			const copy = [...state.cart];
+
+			return {
+				...state,
+				cart: copy.splice(0, copy.length - 1),
+			};
+		},
 	},
 	initialState
 );

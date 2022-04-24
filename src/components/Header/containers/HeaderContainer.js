@@ -2,11 +2,7 @@ import { Component, createRef } from "react";
 import { connect } from "react-redux";
 
 import { Headerlayout } from "../components/HeaderLayout";
-import {
-	SELECT_CATEGORY,
-	SELECT_CURRENCY,
-	GET_ALL_PRODUCTS,
-} from "../../../actions/index.js";
+import { SELECT_CATEGORY, SELECT_CURRENCY } from "../../../actions/index.js";
 
 class HeaderContainer extends Component {
 	constructor(props) {
@@ -18,6 +14,7 @@ class HeaderContainer extends Component {
 		};
 
 		this.menuRef = createRef();
+		this.dropdownRef = createRef();
 	}
 
 	componentDidUpdate(prevState) {
@@ -37,7 +34,13 @@ class HeaderContainer extends Component {
 		document.body.style.paddingRight = 0;
 	}
 
-	handleToggleDropdown = (e) => {
+	handleCloseDropdown = (e) => {
+		if (this.dropdownRef && e.target !== this.dropdownRef.current) {
+			this.setState({ isDropdownOpen: false });
+		}
+	};
+
+	handleToggleDropdown = () => {
 		if (this.state.isCartOverlayOpen) return;
 
 		this.setState({ isDropdownOpen: !this.state.isDropdownOpen });
@@ -72,38 +75,32 @@ class HeaderContainer extends Component {
 	};
 
 	render() {
-		const {
-			selectedCurrency,
-			selectedCategory,
-			cart,
-			handleChangeCurrency,
-			getAllProducts,
-		} = this.props;
+		const { selectedCurrency, cart, handleChangeCurrency } =
+			this.props;
 
 		return (
 			<Headerlayout
 				menuRef={this.menuRef}
+				dropdownRef={this.dropdownRef}
 				cart={cart}
 				isDropdownOpen={this.state.isDropdownOpen}
 				isCartOverlayOpen={this.state.isCartOverlayOpen}
 				selectedCurrency={selectedCurrency}
-				selectedCategory={selectedCategory}
+				handleCloseDropdown={this.handleCloseDropdown}
 				handleToggleDropdown={this.handleToggleDropdown}
 				handleCloseCartOverlay={this.handleCloseCartOverlay}
 				handleToggleOpenCartOverlay={this.handleToggleOpenCartOverlay}
 				handleReload={this.handleReload}
 				handleChangeCategory={this.handleChangeCategory}
 				handleChangeCurrency={handleChangeCurrency}
-				getAllProducts={getAllProducts}
 			/>
 		);
-	};
-};
+	}
+}
 
 const mapStateToProps = (state) => {
 	return {
 		selectedCurrency: state.mainReducer.selectedCurrency,
-		selectedCategory: state.mainReducer.selectedCategory,
 		cart: state.cartReducer.cart,
 	};
 };
@@ -113,7 +110,6 @@ const mapDispatchToProps = (dispatch) => {
 		handleChangeCategory: (categoryName) =>
 			dispatch(SELECT_CATEGORY(categoryName)),
 		handleChangeCurrency: (currency) => dispatch(SELECT_CURRENCY(currency)),
-		getAllProducts: (products) => dispatch(GET_ALL_PRODUCTS(products)),
 	};
 };
 

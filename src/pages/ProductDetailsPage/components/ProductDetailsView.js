@@ -1,8 +1,12 @@
 import { PureComponent } from "react";
+import { Query } from "react-apollo";
+import parser from "html-react-parser";
 
-import { createMarkup, priceToShow } from "../../../utils/index";
+import { priceToShow } from "../../../utils/index";
 import { ProductsDetailsAttribute } from "./ProductsDetailsAttributes";
 import { VerticalSlider } from "../../../components/Sliders/VerticalSlider/index";
+import { GET_PRODUCT_BY_ID_QUERY } from "../../../queries/getProductById";
+import AttributesPopupContainer from "../../../components/Popups/AttributesPopup/containers/AttributesPopupContainer";
 
 import {
 	SliderContainer,
@@ -21,86 +25,137 @@ import {
 export class ProductDetailsView extends PureComponent {
 	render() {
 		const {
+			params,
+			selectedAttributes,
+			isModalOpen,
 			selectedCurrency,
-			selectedProduct,
+			selectedImgIndex,
 			handleSelectAttribute,
 			handleAddToCart,
 			handleSelectImg,
-			selectedImgIndex,
+			onCloseModal,
+			handleCloseModal,
 		} = this.props;
 
-		const {
-			name,
-			brand,
-			gallery,
-			prices,
-			attributes,
-			description,
-			inStock,
-		} = selectedProduct;
-
 		return (
-			<ProductDetailsContainer>
-				<GalleryContainer>
-					<SliderContainer>
-						<VerticalSlider>
-							{gallery.map((pic, index) => (
-								<GalleryImg
-									key={index}
-									onClick={() => {
-										handleSelectImg(index);
-									}}
-									src={pic}
-									alt="pic"
-								/>
-							))}
-						</VerticalSlider>
-					</SliderContainer>
+			<Query
+				query={GET_PRODUCT_BY_ID_QUERY}
+				variables={{ id: params.id }}
+				fetchPolicy="no-cash"
+			>
+				{({ data, loading }) => {
+					if (!data || loading) return;
 
-					<div>
-						<SelectedImg
-							src={gallery[selectedImgIndex]}
-							alt="pic"
-						/>
-					</div>
-				</GalleryContainer>
-				<div>
-					<ProductName>{name}</ProductName>
-					<ProductBrand>{brand}</ProductBrand>
-					<div>
-						{attributes &&
-							attributes.map((attribute) => (
-								<ProductsDetailsAttribute
-									key={attribute.id}
-									attribute={attribute}
-									handleSelectAttribute={
-										handleSelectAttribute
-									}
-								/>
-							))}
-					</div>
-					<div>
-						<Price>Price: </Price>
-						<PriceValue>
-							{priceToShow(prices, selectedCurrency)}
-						</PriceValue>
-					</div>
-					<Button
-						className="disabled"
-						disabled={!inStock}
-						isDisabled={!inStock}
-						onClick={() => handleAddToCart(selectedProduct)}
-						type=""
-					>
-						Add to cart
-					</Button>
-					<div>
-						<ProductDesc
-							dangerouslySetInnerHTML={createMarkup(description)}
-						/>
-					</div>
-				</div>
-			</ProductDetailsContainer>
+					const {
+						name,
+						brand,
+						gallery,
+						prices,
+						description,
+						inStock,
+						attributes,
+					} = data.product;
+
+					return (
+						<>
+							<ProductDetailsContainer>
+								<GalleryContainer>
+									<SliderContainer>
+										<VerticalSlider>
+											{gallery.map((pic, index) => (
+												<GalleryImg
+													key={index}
+													onClick={() => {
+														handleSelectImg(index);
+													}}
+													src={pic}
+													alt="pic"
+												/>
+											))}
+										</VerticalSlider>
+									</SliderContainer>
+
+									<div>
+										<SelectedImg
+											src={gallery[selectedImgIndex]}
+											alt="pic"
+										/>
+									</div>
+								</GalleryContainer>
+								<div>
+									<ProductName>{name}</ProductName>
+									<ProductBrand>{brand}</ProductBrand>
+									<div>
+										{attributes.map((attribute) => (
+											<ProductsDetailsAttribute
+												key={attribute.id}
+												attribute={attribute}
+												attributes={attributes}
+												selectedAttributes={
+													selectedAttributes
+												}
+												handleSelectAttribute={
+													handleSelectAttribute
+												}
+											/>
+										))}
+									</div>
+									<div>
+										<Price>Price: </Price>
+										<PriceValue>
+											{priceToShow(
+												prices,
+												selectedCurrency
+											)}
+										</PriceValue>
+									</div>
+									<Button
+										className="disabled"
+										disabled={!inStock}
+										isDisabled={!inStock}
+										onClick={() => {
+											handleAddToCart(data.product);
+										}}
+										type=""
+									>
+										{inStock
+											? "Add to cart"
+											: "Out of stock"}
+									</Button>
+									<div>
+										<ProductDesc>
+											{parser(description)}
+										</ProductDesc>
+									</div>
+								</div>
+							</ProductDetailsContainer>
+							<AttributesPopupContainer
+								isModalOpen={isModalOpen}
+								selectedAttributes={selectedAttributes}
+								productToAddToCart={data.product}
+								onCloseModal={onCloseModal}
+								handleCloseModal={handleCloseModal}
+								handleAddToCart={handleAddToCart}
+								render={() =>
+									attributes.map((attribute) => (
+										<ProductsDetailsAttribute
+											key={attribute.id}
+											attribute={attribute}
+											attributes={attributes}
+											selectedAttributes={
+												selectedAttributes
+											}
+											handleSelectAttribute={
+												handleSelectAttribute
+											}
+										/>
+									))
+								}
+							/>
+						</>
+					);
+				}}
+			</Query>
 		);
 	}
 }

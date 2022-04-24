@@ -1,8 +1,9 @@
 import { PureComponent } from "react";
 
 import CartCartOverlayCounterContainer from "../containers/CartOverlayCounterContainer";
-import { priceToShow, countTotalSum } from "../../../utils/index";
-import { CartAttributes } from "../../../components/CartAttributes/index";
+import { priceToShow, countTotalSum, countUniqueItems } from "../../../utils/index";
+
+import CartAttributesContainer from "../../CartAttributes/containers/CartAttributesContainer";
 
 import {
 	Container,
@@ -23,6 +24,7 @@ import {
 	CheckOutBtn,
 	ViewBagBtn,
 	CartItem,
+	AttributeName,
 } from "./styles";
 
 export class CartOverlayView extends PureComponent {
@@ -49,9 +51,9 @@ export class CartOverlayView extends PureComponent {
 				<CartContentContaier ref={cartWrapperRef}>
 					<CartTitleContainer>
 						<MyBag>My bag, </MyBag>
-						<ItemsQuantity>{cart.length} items</ItemsQuantity>
+						<ItemsQuantity>{countUniqueItems(cart)} items</ItemsQuantity>
 					</CartTitleContainer>
-					<div onClick={(e) => e.stopPropagation()}>
+					<div>
 						{cart.map(
 							({
 								name,
@@ -72,10 +74,12 @@ export class CartOverlayView extends PureComponent {
 												selectedCurrency
 											)}
 										</Price>
-										<CartAttributes
+										<CartAttributesContainer
 											attributes={attributes}
+											productId={id}
 											FilledAttribute={FilledAttribute}
 											Attribute={Attribute}
+											AttributeName={AttributeName}
 											AttributesContainer={
 												AttributesContainer
 											}
@@ -103,10 +107,10 @@ export class CartOverlayView extends PureComponent {
 							)
 						)}
 					</div>
-					<TotalPriceContainer onClick={(e) => e.stopPropagation()}>
+					<TotalPriceContainer>
 						<Total>Total</Total>
 						<TotalPrice>
-							{total ? `${selectedCurrency}${total}` : total}
+							{total ? `${selectedCurrency}${total}` : 0}
 						</TotalPrice>
 					</TotalPriceContainer>
 					<ContentContainer>

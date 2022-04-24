@@ -103,13 +103,12 @@ const Button = styled.button`
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 120%;
-	color: #ffffff;
+	color: ${(props) => (props.isDisabled ? "#A6A6A6" : "#ffffff")};
 	text-align: center;
 	text-transform: uppercase;
-	max-width: 292px;
-	width: 100%;
+	width: 292px;
 	height: 52px;
-	background: #5ece7b;
+	background: ${(props) => (props.isDisabled ? "#f2f2f2" : "#5ece7b")};
 	border: none;
 	outline: none;
 	margin: 30px 0 40px;

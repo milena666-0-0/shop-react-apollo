@@ -12,36 +12,46 @@ export class ProductsDetailsAttribute extends PureComponent {
 		if (!this.props.attribute) return "loading";
 
 		const {
+			attributes,
 			attribute: { name, items, id: attributeId, type },
 			handleSelectAttribute,
+			selectedAttributes,
 		} = this.props;
 
 		return (
 			<>
 				<ProductAttribName>{`${name}:`}</ProductAttribName>
 				<AttributesContainer>
-					{items.map(({ value, selected, id }) =>
+					{items.map(({ value, id }, index) =>
 						type === "swatch" ? (
 							<FilledAttribute
-								selected={selected}
+								selected={
+									selectedAttributes &&
+									selectedAttributes[attributeId] === index
+								}
 								key={id}
 								value={value}
 								onClick={() =>
-									handleSelectAttribute({
+									handleSelectAttribute(
+										attributes,
 										attributeId,
-										id,
-									})
+										index
+									)
 								}
 							/>
 						) : (
 							<Attribute
-								selected={selected}
+								selected={
+									selectedAttributes &&
+									selectedAttributes[attributeId] === index
+								}
 								key={id}
 								onClick={() =>
-									handleSelectAttribute({
+									handleSelectAttribute(
+										attributes,
 										attributeId,
-										id,
-									})
+										index
+									)
 								}
 							>
 								{value}
@@ -51,5 +61,5 @@ export class ProductsDetailsAttribute extends PureComponent {
 				</AttributesContainer>
 			</>
 		);
-	};
-};
+	}
+}

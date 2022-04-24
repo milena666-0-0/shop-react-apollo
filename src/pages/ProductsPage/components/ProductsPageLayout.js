@@ -14,9 +14,11 @@ export class ProductsPageLayout extends Component {
 		return (
 			<Query
 				query={GET_CATEGORY_QUERY}
-				variables={{ input: { title: selectedCategory } }}
+				variables={{ input: { title: selectedCategory || "all" } }}
 			>
-				{({ data }) => {
+				{({ data, loading, refetch }) => {
+					
+					if (!data || loading) return;
 					return (
 						<>
 							<CategoryName>
@@ -26,18 +28,20 @@ export class ProductsPageLayout extends Component {
 
 							<ProductsContainer>
 								{data &&
-									data.category.products.map((product) => (
-										<ProductCardContainer
-											key={product.id}
-											cardData={product}
-										/>
-									))}
+									data.category.products.map((product) => {
+										return (
+											<ProductCardContainer
+												key={product.id}
+												refetch={refetch}
+												cardData={product}
+											/>
+										);
+									})}
 							</ProductsContainer>
 						</>
 					);
 				}}
 			</Query>
 		);
-	};
-};
-
+	}
+}

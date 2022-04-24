@@ -15,6 +15,16 @@ const GET_CATEGORY_QUERY = gql`
 					}
 					amount
 				}
+				attributes {
+					id
+					name
+					type
+					items {
+						displayValue
+						value
+						id
+					}
+				}
 			}
 		}
 	}

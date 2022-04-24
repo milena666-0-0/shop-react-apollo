@@ -1,9 +1,9 @@
 export const priceToShow = (prices, selectedCurrency = '$') => {
 
-	return prices.map(({ currency, amount }) => {
+	return prices.forEach(({ currency, amount }) => {
 
 		if (currency.symbol === selectedCurrency) {
-			return `${currency.symbol}${Math.ceil(amount)}`;
+			return `${currency.symbol}${amount.toFixed(2)}`;
 		}
 
 	});

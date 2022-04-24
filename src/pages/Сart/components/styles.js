@@ -66,6 +66,9 @@ const Attribute = styled.div`
 	background: ${(props) => (props.selected ? "#1D1F22" : "#fff")};
 	color: ${(props) => (props.selected ? "#fff" : "#1D1F22")};
 	border: 1px solid #1d1f22;
+	&:hover {
+		cursor: pointer;
+	}
 `;
 
 const FilledAttribute = styled(Attribute)`
@@ -127,6 +130,11 @@ const CounterBtn = styled.button`
 	}
 `;
 
+const AttributeName = styled.div`
+	font-weight: 500;
+	font-size: 20px;
+	margin: 27px 0 5px;
+`;
 
 export {
 	CartTitle,
@@ -146,4 +154,5 @@ export {
 	ProductPreview,
 	ProductImgContainer,
 	PoductImg,
+	AttributeName,
 };

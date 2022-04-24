@@ -19,18 +19,19 @@ import cartPic from "../../../static/imgs/cart.png";
 export class Headerlayout extends Component {
 	render() {
 		const {
+			cart,
 			menuRef,
+			dropdownRef,
 			isDropdownOpen,
 			selectedCurrency,
 			isCartOverlayOpen,
+			handleCloseDropdown,
 			handleToggleDropdown,
 			handleChangeCategory,
 			handleChangeCurrency,
 			handleToggleOpenCartOverlay,
 			handleCloseCartOverlay,
 			handleReload,
-			getAllProducts,
-			cart,
 		} = this.props;
 
 		return (
@@ -38,7 +39,6 @@ export class Headerlayout extends Component {
 				<HeaderMenu
 					menuRef={menuRef}
 					handleChangeCategory={handleChangeCategory}
-					getAllProducts={getAllProducts}
 				/>
 
 				<Logo onClick={handleReload} src={logo} alt="logo" />
@@ -47,6 +47,8 @@ export class Headerlayout extends Component {
 					<Headerdropdown
 						isDropdownOpen={isDropdownOpen}
 						selectedCurrency={selectedCurrency}
+						dropdownRef={dropdownRef}
+						handleCloseDropdown={handleCloseDropdown}
 						handleToggleDropdown={handleToggleDropdown}
 						handleChangeCurrency={handleChangeCurrency}
 					/>
@@ -68,5 +70,5 @@ export class Headerlayout extends Component {
 				/>
 			</FlexHeaderContainer>
 		);
-	};
-};
+	}
+}

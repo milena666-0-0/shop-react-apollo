@@ -8,7 +8,7 @@ import { NavMenu, MenuLi } from "./styles.js";
 
 export class HeaderMenu extends PureComponent {
 	render() {
-		const { menuRef, handleChangeCategory, getAllProducts } = this.props;
+		const { menuRef, handleChangeCategory } = this.props;
 
 		return (
 			<nav>
@@ -16,8 +16,6 @@ export class HeaderMenu extends PureComponent {
 					<Query query={GET_CATEGORIES_QUERY}>
 						{({ data, loading }) => {
 							if (loading || !data) return;
-
-							getAllProducts(data);
 
 							return (
 								<>
@@ -40,6 +38,5 @@ export class HeaderMenu extends PureComponent {
 				</NavMenu>
 			</nav>
 		);
-	};
-};
-
+	}
+}

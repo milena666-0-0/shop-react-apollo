@@ -12,6 +12,7 @@ const StyledSection = styled.section`
 class MainLayout extends Component {
 	render() {
 		const { children, isCartOverlayOpen } = this.props;
+
 		return (
 			<>
 				<HeaderContainer />

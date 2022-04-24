@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import inCart from "../../../static/imgs/inCart.png";
-
 const CardContainer = styled.div`
 	position: relative;
 	background: #fff;
@@ -10,34 +8,37 @@ const CardContainer = styled.div`
 	max-width: 386px;
 	width: 100%;
 	padding: 16px;
+	${(props) =>
+		!props.inStock && {
+			"&": {
+				opacity: "0.5",
+			},
+			"& span": {
+				visibility: "visible",
+			},
+		}}
 	&:hover {
 		cursor: pointer;
 		${(props) =>
-			props.inStock
-				? {
-						boxShadow: "0px 4px 35px rgba(168, 172, 176, 0.19);",
-						"&:after": {
-							content: `url(${inCart})`,
-							position: "absolute",
-							right: "31px",
-							bottom: "72px",
-							width: "52px",
-							height: "52px",
-						},
-				  }
-				: {
-						"&": {
-							opacity: "0.5",
-						},
-						"& span": {
-							visibility: "visible",
-						},
-				  }}
-	}
+			props.inStock && {
+				boxShadow: "0px 4px 35px rgba(168, 172, 176, 0.19);",
+			}}
+`;
+
+const CartImg = styled.img`
+	position: absolute;
+	right: 11px;
+	bottom: -10px;
+	min-width: 52px;
+	min-height: 52px;
+	display: none;
 `;
 
 const ImgContainer = styled.div`
 	position: relative;
+	&:hover > img {
+		display: inline-block;
+	}
 `;
 
 const OutOfStock = styled.span`
@@ -72,9 +73,11 @@ const ProductImg = styled.img`
 	max-height: 330px;
 	height: 100%;
 	margin-bottom: 24px;
+	object-fit: contain;
 `;
 
 export {
+	CartImg,
 	CardContainer,
 	ProductName,
 	Price,

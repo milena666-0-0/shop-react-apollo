@@ -28,6 +28,7 @@ const SlickSlider = styled(Slider)`
 		position: absolute;
 		transform: translate(-50%, 0);
 		z-index: 9999;
+		font-size: 30px;
 	}
 	.slick-prev {
 		left: 50%;
@@ -40,8 +41,8 @@ const SlickSlider = styled(Slider)`
 `;
 
 const StyledtBtn = styled.span`
-	height: 25px;
-	width: 25px;
+	height: 40px;
+	width: 40px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -99,5 +100,5 @@ export class VerticalSlider extends PureComponent {
 		};
 
 		return <SlickSlider {...settings}>{this.props.children}</SlickSlider>;
-	};
-};
+	}
+}

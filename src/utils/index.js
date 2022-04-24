@@ -1,11 +1,6 @@
-import { createMarkup } from "./createMarkup";
 import { priceToShow } from "./priceToShow";
 import { countTotalSum } from "./countTotalSum";
 import { transformFirstCharToUp } from "./transformFirstCharToUp";
+import { countUniqueItems } from "./countUniqueItems";
 
-export {
-	createMarkup,
-	priceToShow,
-	countTotalSum,
-	transformFirstCharToUp,
-};
+export { priceToShow, countTotalSum, transformFirstCharToUp, countUniqueItems };

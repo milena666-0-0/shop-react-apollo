@@ -1,18 +1,19 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 
+import { UPDATE_SELECTED_ATTRIBUTE } from "../actions";
 import { CartPageLayout } from "../components/CartPageLayout";
 
 class CartPageContainer extends Component {
 	render() {
-		const { cart, selectedCurrency } = this.props;
+		const { cart, selectedCurrency, handleChangeSelectedAttribute } =
+			this.props;
 
 		return (
 			<CartPageLayout
 				cart={cart}
 				selectedCurrency={selectedCurrency}
-				handleIncQuantity={this.handleIncQuantity}
-				handleDecQuantity={this.handleDecQuantity}
+				handleChangeSelectedAttribute={handleChangeSelectedAttribute}
 			/>
 		);
 	};
@@ -25,4 +26,11 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps)(CartPageContainer);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		handleChangeSelectedAttribute: (index) =>
+			dispatch(UPDATE_SELECTED_ATTRIBUTE(index)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartPageContainer);

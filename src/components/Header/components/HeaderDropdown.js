@@ -4,6 +4,7 @@ import { Query } from "react-apollo";
 import { GET_CURRENCIES_QUERY } from "../../../queries/index";
 
 import {
+	CurrencyDropdownContainer,
 	CurrencyDropdown,
 	CurrencyPreview,
 	Currency,
@@ -14,9 +15,10 @@ import {
 export class Headerdropdown extends PureComponent {
 	render() {
 		const {
-			dropDownRef,
+			dropdownRef,
 			isDropdownOpen,
 			selectedCurrency,
+			handleCloseDropdown,
 			handleToggleDropdown,
 			handleChangeCurrency,
 		} = this.props;
@@ -24,27 +26,34 @@ export class Headerdropdown extends PureComponent {
 		return (
 			<Query query={GET_CURRENCIES_QUERY}>
 				{({ data }) => (
-					<CurrencyDropdown ref={dropDownRef}>
+					<CurrencyDropdown>
 						<CurrencyPreview
 							open={isDropdownOpen}
 							onClick={handleToggleDropdown}
 						>
 							<Currency>{selectedCurrency || "$"}</Currency>
 						</CurrencyPreview>
-						<CurrencyDropdownOptions open={isDropdownOpen}>
-							{data &&
-								data.currencies.map(({ label, symbol }) => (
-									<CurrencyOption
-										key={label}
-										onClick={() => {
-											handleChangeCurrency(symbol);
-											handleToggleDropdown();
-										}}
-									>
-										{symbol} {label}
-									</CurrencyOption>
-								))}
-						</CurrencyDropdownOptions>
+						<CurrencyDropdownContainer
+							open={isDropdownOpen}
+							onClick={(e) => handleCloseDropdown(e)}
+						>
+							<CurrencyDropdownOptions
+								ref={dropdownRef}
+								open={isDropdownOpen}
+							>
+								{data &&
+									data.currencies.map(({ label, symbol }) => (
+										<CurrencyOption
+											key={label}
+											onClick={() =>
+												handleChangeCurrency(symbol)
+											}
+										>
+											{symbol} {label}
+										</CurrencyOption>
+									))}
+							</CurrencyDropdownOptions>
+						</CurrencyDropdownContainer>
 					</CurrencyDropdown>
 				)}
 			</Query>

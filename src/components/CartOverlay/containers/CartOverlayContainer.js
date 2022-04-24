@@ -13,10 +13,7 @@ class CartOverlayContainer extends Component {
 	}
 
 	handleCloseCartOverlay = (e) => {
-		if (
-			this.cartWrapperRef &&
-			!this.cartWrapperRef.current.contains(e.target)
-		) {
+		if (!this.cartWrapperRef.current.contains(e.target)) {
 			this.props.handleCloseCartOverlay();
 		}
 	};

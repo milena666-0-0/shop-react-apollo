@@ -12,15 +12,15 @@ export const withCart = (WrappedComponent) => (props) => {
 
 	const handleAddToCart = useCallback((item) => {
 		dispatch(ADD_TO_CART(item));
-	}, []);
+	}, [dispatch]);
 
 	const handleRemoveFromCart = useCallback((id) => {
 		dispatch(REMOVE_FROM_CART(id));
-	}, []);
+	}, [dispatch]);
 
 	const handleUpdateQuantity = useCallback(({ id, quantity }) => {
 		dispatch(UPDATE_QUANTITY_IN_CART({ id, quantity }));
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<WrappedComponent

@@ -2,7 +2,7 @@ import { PureComponent, Fragment } from "react";
 
 import { priceToShow } from "../../../utils/index";
 import { SimpleSlider } from "../../../components/Sliders/SimpleSlider/index";
-import { CartAttributes } from "../../../components/CartAttributes/index";
+import CartAttributesContainer from "../../../components/CartAttributes/containers/CartAttributesContainer";
 import CartCounterContainer from "../containers/CartCounterContainer";
 
 import {
@@ -20,11 +20,13 @@ import {
 	Attribute,
 	FilledAttribute,
 	AttributesContainer,
+	AttributeName
 } from "./styles";
 
 export class CartPageLayout extends PureComponent {
 	render() {
-		const { cart, selectedCurrency } = this.props;
+		const { cart, selectedCurrency, handleChangeSelectedAttribute } =
+			this.props;
 
 		return (
 			<>
@@ -54,14 +56,19 @@ export class CartPageLayout extends PureComponent {
 														selectedCurrency
 													)}
 												</Price>
-												<CartAttributes
+												<CartAttributesContainer
 													attributes={attributes}
+													productId={id}
 													FilledAttribute={
 														FilledAttribute
 													}
+													AttributeName={AttributeName}
 													Attribute={Attribute}
 													AttributesContainer={
 														AttributesContainer
+													}
+													handleChangeSelectedAttribute={
+														handleChangeSelectedAttribute
 													}
 												/>
 											</div>
@@ -90,5 +97,5 @@ export class CartPageLayout extends PureComponent {
 				</ItemsContainer>
 			</>
 		);
-	};
-};
+	}
+}

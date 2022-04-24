@@ -74,7 +74,6 @@ const TotalPriceContainer = styled(ContentContainer)`
 
 const AttributesContainer = styled.div`
 	display: flex;
-	margin-top: 27px;
 	& > div {
 		margin-right: 8px;
 		&:last-child {
@@ -97,6 +96,9 @@ const Attribute = styled.div`
 	color: ${(props) => (props.selected ? "#1d1f22 " : "#A6A6A6")};
 	border: ${(props) =>
 		props.selected ? "1px solid #1d1f22" : " 1px solid #A6A6A6;"};
+	&:hover {
+		cursor: pointer;
+	}
 `;
 
 const FilledAttribute = styled(Attribute)`
@@ -159,6 +161,12 @@ const CheckOutBtn = styled(ViewBagBtn)`
 	border: none;
 `;
 
+const AttributeName = styled.div`
+	font-weight: 500;
+	margin: 27px 0 5px;
+	font-size: 15px;
+`;
+
 export {
 	Container,
 	CartContentContaier,
@@ -181,4 +189,5 @@ export {
 	Quantity,
 	CheckOutBtn,
 	ViewBagBtn,
+	AttributeName,
 };

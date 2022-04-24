@@ -60,6 +60,13 @@ const HeaderOptions = styled.div`
 const CurrencyDropdown = styled.div`
 	position: relative;
 `;
+const CurrencyDropdownContainer = styled.div`
+	position: fixed;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: ${(props) => (props.open ? "block" : "none")};
+`;
 
 const CurrencyPreview = styled.div`
 	display: flex;
@@ -77,21 +84,24 @@ const CurrencyPreview = styled.div`
 
 const Currency = styled.span`
 	margin-right: 10px;
+	font-weight: 500;
+	font-size: 18px;
+	color: #1d1f22;
 `;
 
 const CurrencyDropdownOptions = styled.ul`
 	position: absolute;
-	top: 130%;
-	left: -70%;
+	top: 10px;
+	right: 10%;
 	transition: all 0.2s;
 	padding: 20px 20px 20px;
 	list-style-type: none;
-	min-width: 114px;
+	max-width: 114px;
 	width: 100%;
 	background: #fff;
 	display: ${(props) => (props.open ? "block" : "none")};
 	&:hover {
-		filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
+		box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 	}
 `;
 
@@ -106,6 +116,7 @@ const CurrencyOption = styled.li`
 	}
 	&:hover {
 		cursor: pointer;
+		font-weight: 700;
 	}
 `;
 
@@ -142,6 +153,7 @@ export {
 	NavMenu,
 	MenuLi,
 	HeaderOptions,
+	CurrencyDropdownContainer,
 	CurrencyDropdown,
 	CurrencyPreview,
 	Currency,
