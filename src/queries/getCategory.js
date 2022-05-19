@@ -9,6 +9,7 @@ const GET_CATEGORY_QUERY = gql`
 				name
 				inStock
 				gallery
+				description
 				prices {
 					currency {
 						symbol

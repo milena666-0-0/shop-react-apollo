@@ -28,7 +28,6 @@ export class ProductCardView extends PureComponent {
 			navigate,
 			handleSelectAttribute,
 			selectedCurrency,
-			refetch,
 			handleCloseModal,
 			onCloseModal,
 			handleAddToCart,
@@ -50,7 +49,6 @@ export class ProductCardView extends PureComponent {
 						{inStock && (
 							<CartImg
 								onClick={(e) => {
-									refetch();
 									e.stopPropagation();
 									handleAddToCart(cardData);
 								}}
@@ -84,5 +82,5 @@ export class ProductCardView extends PureComponent {
 				/>
 			</>
 		);
-	}
-}
+	};
+};

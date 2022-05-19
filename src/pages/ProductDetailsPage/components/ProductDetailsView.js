@@ -41,7 +41,7 @@ export class ProductDetailsView extends PureComponent {
 			<Query
 				query={GET_PRODUCT_BY_ID_QUERY}
 				variables={{ id: params.id }}
-				fetchPolicy="no-cash"
+				fetchPolicy="cache-and-network"
 			>
 				{({ data, loading }) => {
 					if (!data || loading) return;

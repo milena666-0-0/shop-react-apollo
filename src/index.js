@@ -13,7 +13,6 @@ import ProductDetailsContainer from "./pages/ProductDetailsPage/containers/Produ
 import CartPageContainer from "./pages/Сart/containers/CartPageContainer";
 import MainLayout from "./components/MainLayout/index";
 import { configureStore } from "./store/configureStore";
-
 import "./styles/normolize.css";
 
 const client = new ApolloClient({

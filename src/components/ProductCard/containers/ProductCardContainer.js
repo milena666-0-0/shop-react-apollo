@@ -15,7 +15,7 @@ class ProductCardContainer extends Component {
 		};
 
 		this.cardRef = createRef();
-	}
+	};
 
 	componentDidUpdate(prevState) {
 		const { isModalOpen } = this.state;
@@ -23,8 +23,8 @@ class ProductCardContainer extends Component {
 		if (prevState !== isModalOpen) {
 			document.body.style.overflowY = isModalOpen ? "hidden" : "scroll";
 			document.body.style.paddingRight = isModalOpen ? "17px" : 0;
-		}
-	}
+		};
+	};
 
 	handleOpenModal = () => {
 		this.setState({ isModalOpen: true });
@@ -37,7 +37,7 @@ class ProductCardContainer extends Component {
 	handleCloseModal = (e, popupRef) => {
 		if (!popupRef.current.contains(e.target)) {
 			this.onCloseModal();
-		}
+		};
 	};
 
 	handleSelectAttribute = (attributes, attributeId, index) => {
@@ -54,7 +54,7 @@ class ProductCardContainer extends Component {
 						selectedAttributes: copy,
 					};
 				});
-			}
+			};
 		});
 	};
 
@@ -86,16 +86,18 @@ class ProductCardContainer extends Component {
 
 		if (item.attributes.length) {
 			this.handleOpenModal();
-		} 
+		} else if(item.attributes.length === 0){
+			this.props.onAddToCart(copy);
+		};
 
 		if (isModalOpen && selectedAttribute) {
 			this.props.onAddToCart(copy);
-		}
+		};
 	};
 
 	render() {
 		const { navigate } = this.props.router;
-		const { cardData, selectedCurrency, refetch } = this.props;
+		const { cardData, selectedCurrency } = this.props;
 
 		return (
 			<ProductCardView
@@ -105,15 +107,14 @@ class ProductCardContainer extends Component {
 				cardData={cardData}
 				navigate={navigate}
 				selectedCurrency={selectedCurrency}
-				refetch={refetch}
 				handleSelectAttribute={this.handleSelectAttribute}
 				onCloseModal={this.onCloseModal}
 				handleAddToCart={this.handleAddToCart}
 				handleCloseModal={this.handleCloseModal}
 			/>
 		);
-	}
-}
+	};
+};
 
 const mapStateToProps = (state) => {
 	return {

@@ -14,10 +14,11 @@ export class ProductsPageLayout extends Component {
 		return (
 			<Query
 				query={GET_CATEGORY_QUERY}
-				variables={{ input: { title: selectedCategory || "all" } }}
+				variables={{ input: { title: selectedCategory } }}
+				fetchPolicy='no-cache'
 			>
-				{({ data, loading, refetch }) => {
-					
+				{({ data, loading }) => {
+
 					if (!data || loading) return;
 					return (
 						<>
@@ -32,7 +33,6 @@ export class ProductsPageLayout extends Component {
 										return (
 											<ProductCardContainer
 												key={product.id}
-												refetch={refetch}
 												cardData={product}
 											/>
 										);
@@ -43,5 +43,5 @@ export class ProductsPageLayout extends Component {
 				}}
 			</Query>
 		);
-	}
-}
+	};
+};
