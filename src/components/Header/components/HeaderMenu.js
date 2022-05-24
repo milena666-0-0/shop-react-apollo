@@ -1,7 +1,7 @@
 import { PureComponent } from "react";
 import { Query } from "react-apollo";
 
-import { GET_CATEGORIES_QUERY } from "../../../queries/index";
+import { GET_CATEGORIES_NAMES_QUERY } from "../../../queries/index";
 import { ROUTE_NAMES } from "../../../routes/routeNames";
 
 import { NavMenu, MenuLi } from "./styles.js";
@@ -13,10 +13,10 @@ export class HeaderMenu extends PureComponent {
 		return (
 			<nav>
 				<NavMenu>
-					<Query query={GET_CATEGORIES_QUERY}>
+					<Query query={GET_CATEGORIES_NAMES_QUERY}>
 						{({ data, loading }) => {
 							if (loading || !data) return;
-
+							
 							return (
 								<>
 									{data.categories.map(({ name }) => (

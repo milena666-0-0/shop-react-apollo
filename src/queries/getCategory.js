@@ -26,6 +26,7 @@ const GET_CATEGORY_QUERY = gql`
 						id
 					}
 				}
+				brand
 			}
 		}
 	}

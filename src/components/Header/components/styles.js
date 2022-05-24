@@ -52,6 +52,7 @@ const MenuLi = styled(Link)`
 `;
 
 const HeaderOptions = styled.div`
+	position: relative;
 	display: flex;
 	min-width: 204px;
 	justify-content: flex-end;
@@ -63,8 +64,8 @@ const CurrencyDropdown = styled.div`
 const CurrencyDropdownContainer = styled.div`
 	position: fixed;
 	left: 0;
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 	display: ${(props) => (props.open ? "block" : "none")};
 `;
 
@@ -92,17 +93,15 @@ const Currency = styled.span`
 const CurrencyDropdownOptions = styled.ul`
 	position: absolute;
 	top: 10px;
-	right: 10%;
+	right: 7%;
 	transition: all 0.2s;
 	padding: 20px 20px 20px;
 	list-style-type: none;
 	max-width: 114px;
-	width: 100%;
+	width: 100%
 	background: #fff;
 	display: ${(props) => (props.open ? "block" : "none")};
-	&:hover {
-		box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
-	}
+	box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 `;
 
 const CurrencyOption = styled.li`

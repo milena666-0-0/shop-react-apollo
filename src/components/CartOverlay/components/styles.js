@@ -101,9 +101,16 @@ const Attribute = styled.div`
 	}
 `;
 
+
 const FilledAttribute = styled(Attribute)`
-	background: ${(props) => props.value};
+	border: ${(props) => (props.selected ? "3px solid red" : "none")};
 	opacity: ${(props) => (props.selected ? 1 : 0.5)};
+	background: ${(props) => props.value};
+	color: transparent;
+	&:last-child {
+		border: ${(props) =>
+			props.selected ? "3px solid red" : "1px solid #1D1F22"};
+	}
 `;
 
 const ProductImg = styled.img`

@@ -1,10 +1,10 @@
-export const priceToShow = (prices, selectedCurrency = '$') => {
+export const priceToShow = (prices, selectedCurrency = "$") => {
 
-	return prices.forEach(({ currency, amount }) => {
+	for (let i = 0; i < prices.length; i++) {
 
-		if (currency.symbol === selectedCurrency) {
-			return `${currency.symbol}${amount.toFixed(2)}`;
+		if (prices[i].currency.symbol === selectedCurrency) {
+			return `${prices[i].currency.symbol}${prices[i].amount.toFixed(2)}`;
 		}
-
-	});
+		
+	}
 };

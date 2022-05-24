@@ -33,7 +33,7 @@ export class ProductCardView extends PureComponent {
 			handleAddToCart,
 		} = this.props;
 
-		const { id, gallery, name, inStock, prices, attributes } = cardData;
+		const { id, gallery, name, inStock, prices, attributes, brand } = cardData;
 
 		return (
 			<>
@@ -58,7 +58,7 @@ export class ProductCardView extends PureComponent {
 						)}
 						<OutOfStock>Out of stock</OutOfStock>
 					</ImgContainer>
-					<ProductName>{name}</ProductName>
+					<ProductName>{`${brand} ${name}`}</ProductName>
 					<Price>{priceToShow(prices, selectedCurrency)}</Price>
 				</CardContainer>
 				<AttributesPopupContainer

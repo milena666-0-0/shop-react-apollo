@@ -3,6 +3,7 @@ import { Component } from "react";
 import CartOverlayContainer from "../../CartOverlay/containers/CartOverlayContainer";
 import { HeaderMenu } from "./HeaderMenu";
 import { Headerdropdown } from "./HeaderDropdown";
+import { countAllItemsInCart } from "../../../utils/index";
 
 import {
 	FlexHeaderContainer,
@@ -60,7 +61,7 @@ export class Headerlayout extends Component {
 							alt="cart"
 						/>
 						{cart.length ? (
-							<CartBadge>{cart.length}</CartBadge>
+							<CartBadge>{countAllItemsInCart(cart)}</CartBadge>
 						) : null}
 					</CartPicContainer>
 				</HeaderOptions>

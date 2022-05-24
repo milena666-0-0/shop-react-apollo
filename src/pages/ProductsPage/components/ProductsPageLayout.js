@@ -15,11 +15,13 @@ export class ProductsPageLayout extends Component {
 			<Query
 				query={GET_CATEGORY_QUERY}
 				variables={{ input: { title: selectedCategory } }}
-				fetchPolicy='no-cache'
+				fetchPolicy="no-cache"
+				nextFetchPolicy="cache-first"
 			>
 				{({ data, loading }) => {
-
 					if (!data || loading) return;
+					console.log(data);
+
 					return (
 						<>
 							<CategoryName>
@@ -43,5 +45,5 @@ export class ProductsPageLayout extends Component {
 				}}
 			</Query>
 		);
-	};
-};
+	}
+}

@@ -93,9 +93,13 @@ const Attribute = styled.div`
 `;
 
 const FilledAttribute = styled(Attribute)`
-	border: ${(props) => (props.selected ? "1 px solid #000" : "none")};
+	border: ${(props) => (props.selected ? "3px solid red" : "none")};
 	background: ${(props) => props.value};
 	color: transparent;
+	&:last-child {
+		border: ${(props) =>
+			props.selected ? "3px solid red" : "1px solid #1D1F22"};
+	}
 `;
 
 const Button = styled.button`

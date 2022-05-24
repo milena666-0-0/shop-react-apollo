@@ -72,8 +72,13 @@ const Attribute = styled.div`
 `;
 
 const FilledAttribute = styled(Attribute)`
+	border: ${(props) => (props.selected ? "3px solid red" : "none")};
 	background: ${(props) => props.value};
-	border: ${(props) => (props.selected ? "1px solid #1d1f22" : "none")};
+	color: transparent;
+	&:last-child {
+		border: ${(props) =>
+			props.selected ? "3px solid red" : "1px solid #1D1F22"};
+	}
 `;
 
 const ContentContainer = styled.div`
